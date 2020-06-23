@@ -16,11 +16,19 @@ public class Status {
     @Column(name = "status_name", nullable = false)
     String statusName;
 
-    @OneToMany(mappedBy = "statusOfProject")
+    @OneToMany(mappedBy = "statusOfProject", fetch = FetchType.EAGER)
     List<Project> projects;
 
-    @OneToMany(mappedBy = "statusOfItem")
-    List<Item> items;
+    //@OneToMany(mappedBy = "statusOfItem", fetch = FetchType.EAGER)
+    //List<Item> items;
+
+    public Status() {
+    }
+
+    public Status(String statusName) {
+
+        this.statusName = statusName;
+    }
 
     public Integer getStatusId() {
         return statusId;
@@ -38,6 +46,7 @@ public class Status {
         this.statusName = statusName;
     }
 
+    /*
     public List<Item> getItems() {
         return items;
     }
@@ -45,6 +54,7 @@ public class Status {
     public void setItems(List<Item> items) {
         this.items = items;
     }
+    */
 
     @Override
     public String toString() {

@@ -1,6 +1,6 @@
 USE bugtracker;
 CREATE TABLE type
 (
-    type_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    type_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30) NOT NULL
 );

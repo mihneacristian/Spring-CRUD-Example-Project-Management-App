@@ -23,7 +23,7 @@ public class Item {
     Status statusOfItem;
 
     @ManyToOne
-    @JoinColumn(name = "typeId")
+    @JoinColumn(name = "type_Id")
     Type typeOfItem;
 
     @OneToMany(mappedBy = "itemIdForThisComment")

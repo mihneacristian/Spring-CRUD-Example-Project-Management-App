@@ -1,5 +1,7 @@
 package com.mihneacristian.project_tracker.Entities;
 
+import com.mihneacristian.project_tracker.DTO.ProjectDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,18 +16,29 @@ public class Project {
     @Column(name = "name", nullable = false)
     String name;
 
-    @Column(name = "short_name", nullable = false)
-    String shortname;
-
     @Column(name = "description")
     String description;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    TeamMembers teamMemberOfProject;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
     Status statusOfProject;
 
-    public Integer getProjectId(Integer id) {
-        return id;
+    public Project() {
+    }
+
+    public Project(ProjectDTO projectDTO, Status status) {
+
+        this.name = projectDTO.projectName;
+        this.description = projectDTO.description;
+        this.statusOfProject = status;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
     }
 
     public void setProjectId(Integer projectId) {
@@ -38,14 +51,6 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getShortname() {
-        return shortname;
-    }
-
-    public void setShortname(String shortname) {
-        this.shortname = shortname;
     }
 
     public String getDescription() {
@@ -64,13 +69,21 @@ public class Project {
         this.statusOfProject = statusOfProject;
     }
 
+    public TeamMembers getTeamMemberOfProject() {
+        return teamMemberOfProject;
+    }
+
+    public void setTeamMemberOfProject(TeamMembers teamMemberOfProject) {
+        this.teamMemberOfProject = teamMemberOfProject;
+    }
+
     @Override
     public String toString() {
         return "Project{" +
                 "projectId=" + projectId +
                 ", name='" + name + '\'' +
-                ", shortname='" + shortname + '\'' +
-                ", description='" + description + '\'' +
+                "," +
+                " description='" + description + '\'' +
                 ", statusOfProject=" + statusOfProject +
                 '}';
     }
