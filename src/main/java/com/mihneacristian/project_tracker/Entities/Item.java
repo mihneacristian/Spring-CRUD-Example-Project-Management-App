@@ -29,6 +29,10 @@ public class Item {
     @OneToMany(mappedBy = "itemIdForThisComment")
     List<Comment> comment;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    TeamMembers teamMemberOfItem;
+
     public Integer getItemId() {
         return itemId;
     }
@@ -75,6 +79,14 @@ public class Item {
 
     public void setComment(List<Comment> comment) {
         this.comment = comment;
+    }
+
+    public TeamMembers getTeamMemberOfItem() {
+        return teamMemberOfItem;
+    }
+
+    public void setTeamMemberOfItem(TeamMembers teamMemberOfItem) {
+        this.teamMemberOfItem = teamMemberOfItem;
     }
 
     @Override

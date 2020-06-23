@@ -13,6 +13,26 @@ public class ProjectDTO {
     public String teamMemberOfProjectLastName;
     public String teamMemberOfProjectEmailAddress;
 
+    public ProjectDTO() {
+    }
+
+    public ProjectDTO(Project projectEntity) {
+        this.projectId = projectEntity.getProjectId();
+        this.projectName = projectEntity.getName();
+        this.description = projectEntity.getDescription();
+        this.teamMemberOfProjectLastName = projectEntity.getTeamMemberOfProject().getLastName();
+        this.teamMemberOfProjectFirstName = projectEntity.getTeamMemberOfProject().getFirstName();
+        this.teamMemberOfProjectEmailAddress = projectEntity.getTeamMemberOfProject().getEmailAddress();
+
+        if (projectEntity.getStatusOfProject() != null) {
+
+            this.statusName = projectEntity.getStatusOfProject().getStatusName();
+        } else {
+
+            this.statusName = "Undefined Status";
+        }
+    }
+
     public String getTeamMemberOfProjectFirstName() {
         return teamMemberOfProjectFirstName;
     }
@@ -37,26 +57,6 @@ public class ProjectDTO {
         this.teamMemberOfProjectEmailAddress = teamMemberOfProjectEmailAddress;
     }
     //public String daysLeft;
-
-    public ProjectDTO() {
-    }
-
-    public ProjectDTO(Project projectEntity) {
-        this.projectId = projectEntity.getProjectId();
-        this.projectName = projectEntity.getName();
-        this.description = projectEntity.getDescription();
-        this.teamMemberOfProjectLastName = projectEntity.getTeamMemberOfProject().getLastName();
-        this.teamMemberOfProjectFirstName = projectEntity.getTeamMemberOfProject().getFirstName();
-        this.teamMemberOfProjectEmailAddress = projectEntity.getTeamMemberOfProject().getEmailAddress();
-
-        if (projectEntity.getStatusOfProject() != null) {
-
-            this.statusName = projectEntity.getStatusOfProject().getStatusName();
-        } else {
-
-            this.statusName = "Undefined Status";
-        }
-    }
 
     public int getProjectId() {
         return projectId;
@@ -89,8 +89,6 @@ public class ProjectDTO {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-
-
 
     @Override
     public String toString() {

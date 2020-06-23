@@ -8,20 +8,20 @@ import org.springframework.stereotype.Service;
 public class TeamMembersEntityConverter implements EntityConverter<TeamMembers, TeamMembersDTO> {
 
     @Override
-    public TeamMembersDTO convertToDTO(TeamMembers teamMembers) {
+    public TeamMembersDTO convertToDTO(TeamMembers teamMembersEntity) {
         TeamMembersDTO teamMembersDTO = new TeamMembersDTO();
-        teamMembersDTO.teamMemberLastName = teamMembers.getLastName();
-        teamMembersDTO.teamMemberFirstName = teamMembers.getFirstName();
-        teamMembersDTO.teamMemberEmailAddress = teamMembers.getEmailAddress();
+        teamMembersDTO.teamMemberLastName = teamMembersEntity.getLastName();
+        teamMembersDTO.teamMemberFirstName = teamMembersEntity.getFirstName();
+        teamMembersDTO.teamMemberEmailAddress = teamMembersEntity.getEmailAddress();
         return teamMembersDTO;
     }
 
     @Override
     public TeamMembers convertToEntity(TeamMembersDTO teamMembersDTO) {
-        TeamMembers teamMembers = new TeamMembers();
-        teamMembers.setLastName(teamMembersDTO.teamMemberLastName);
-        teamMembers.setFirstName(teamMembersDTO.teamMemberFirstName);
-        teamMembers.setEmailAddress(teamMembersDTO.teamMemberEmailAddress);
-        return teamMembers;
+        TeamMembers teamMembersEntity = new TeamMembers();
+        teamMembersEntity.setLastName(teamMembersDTO.teamMemberLastName);
+        teamMembersEntity.setFirstName(teamMembersDTO.teamMemberFirstName);
+        teamMembersEntity.setEmailAddress(teamMembersDTO.teamMemberEmailAddress);
+        return teamMembersEntity;
     }
 }

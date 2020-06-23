@@ -16,9 +16,9 @@ public class TypeService {
     TypeRepository typeRepository;
 
     @Transactional
-    public Optional<Type> getTypeById(Integer id) {
+    public Optional<Type> findTypeByName(String name) {
 
-        return typeRepository.findById(id);
+        return typeRepository.findByName(name);
     }
 
     @Transactional

@@ -1,6 +1,8 @@
 package com.mihneacristian.project_tracker.Entities;
 
 import com.mihneacristian.project_tracker.DTO.TeamMembersDTO;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,8 +25,12 @@ public class TeamMembers {
     @Column(name = "email_address")
     String emailAddress;
 
-    @OneToMany(mappedBy = "teamMemberOfProject", fetch = FetchType.EAGER)
+
+    @OneToMany(mappedBy = "teamMemberOfProject")
     List<Project> projects;
+
+    @OneToMany(mappedBy = "teamMemberOfItem")
+    List<Item> items;
 
     public TeamMembers() {
     }

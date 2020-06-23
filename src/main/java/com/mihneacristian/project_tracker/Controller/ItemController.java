@@ -19,14 +19,14 @@ public class ItemController {
     @Autowired
     ItemService itemService;
 
-    @GetMapping(value = "/items", produces = "application/json")
+    @GetMapping(value = "/item", produces = "application/json")
     public ResponseEntity<List<ItemDTO>> getValue() {
 
         List<ItemDTO> allItems = itemService.getAllItems();
         return new ResponseEntity<List<ItemDTO>>(allItems, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/items", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/item", consumes = "application/json", produces = "application/json")
     public void createItem(@RequestBody Item item) {
 
         itemService.saveNewItem(item);
