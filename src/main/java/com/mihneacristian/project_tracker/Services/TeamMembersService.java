@@ -41,5 +41,9 @@ public class TeamMembersService {
         return teamMemberSaved;
     }
 
+    @Transactional
+    public void deleteTeamMemberById(Integer id) {
 
+        teamMembersRepository.deleteById(id);
+    }
 }
