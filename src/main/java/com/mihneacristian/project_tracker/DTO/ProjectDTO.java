@@ -36,12 +36,13 @@ public class ProjectDTO {
     public void setTeamMemberOfProjectEmailAddress(String teamMemberOfProjectEmailAddress) {
         this.teamMemberOfProjectEmailAddress = teamMemberOfProjectEmailAddress;
     }
-//public String daysLeft;
+    //public String daysLeft;
 
     public ProjectDTO() {
     }
 
     public ProjectDTO(Project projectEntity) {
+        this.projectId = projectEntity.getProjectId();
         this.projectName = projectEntity.getName();
         this.description = projectEntity.getDescription();
         this.teamMemberOfProjectLastName = projectEntity.getTeamMemberOfProject().getLastName();

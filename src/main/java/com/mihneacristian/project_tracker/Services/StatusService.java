@@ -16,9 +16,16 @@ public class StatusService {
     StatusRepository statusRepository;
 
     @Transactional
-    public Optional<Status> getStatusById(Integer id) {
+    public Status getStatusByName(String statusName) {
 
-        return statusRepository.findById(id);
+        Optional<Status> statusByName = statusRepository.findByStatusName(statusName);
+
+        if (statusByName.isPresent()) {
+            return statusByName.get();
+        } else {
+            throw new RuntimeException("Could not find Status with name: " + statusName);
+            //todo ELSE throw exception
+        }
     }
 
     @Transactional

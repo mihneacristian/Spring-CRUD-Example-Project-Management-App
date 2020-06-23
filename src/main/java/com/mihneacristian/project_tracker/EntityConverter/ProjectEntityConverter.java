@@ -12,6 +12,7 @@ public class ProjectEntityConverter implements EntityConverter<Project, ProjectD
     public ProjectDTO convertToDTO(Project projectEntity) {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.projectName = projectEntity.getName();
+        projectDTO.projectId = projectEntity.getProjectId();
 
         if (projectEntity.getStatusOfProject() != null) {
 

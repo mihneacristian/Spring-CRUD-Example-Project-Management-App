@@ -39,8 +39,10 @@ public class ProjectService {
 
         if(byId.isPresent()){
             return byId.get();
-        }// todo ELSE throw exception
-        return null;
+        } else {
+            throw new RuntimeException("Could not find a project with the id: " + id);
+            // todo ELSE throw exception
+        }
     }
 
     @Transactional
