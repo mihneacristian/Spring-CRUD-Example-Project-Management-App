@@ -2,6 +2,8 @@ package com.mihneacristian.project_tracker.DTO;
 
 import com.mihneacristian.project_tracker.Entities.Item;
 
+import java.util.Optional;
+
 public class ItemDTO {
 
     public int itemId;
@@ -26,6 +28,7 @@ public class ItemDTO {
         this.teamMemberOfProjectLastName = itemEntity.getTeamMemberOfItem().getLastName();
         this.teamMemberOfProjectEmailAddress = itemEntity.getTeamMemberOfItem().getEmailAddress();
     }
+
 
     public int getItemId() {
         return itemId;

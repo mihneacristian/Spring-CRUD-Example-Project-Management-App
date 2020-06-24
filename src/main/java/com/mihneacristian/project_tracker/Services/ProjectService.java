@@ -82,9 +82,11 @@ public class ProjectService {
             ProjectDTO temp = new ProjectDTO();
             temp.projectId = project.getProjectId();
             temp.projectName = project.getName();
-            temp.teamMemberOfProjectLastName = project.getTeamMemberOfProject().getLastName();
+            temp.description = project.getDescription();
+            temp.statusName = project.getStatusOfProject().getStatusName();
+/*            temp.teamMemberOfProjectLastName = project.getTeamMemberOfProject().getLastName();
             temp.teamMemberOfProjectFirstName = project.getTeamMemberOfProject().getFirstName();
-            temp.teamMemberOfProjectEmailAddress = project.getTeamMemberOfProject().getEmailAddress();
+            temp.teamMemberOfProjectEmailAddress = project.getTeamMemberOfProject().getEmailAddress();*/
             //temp.projectStatus = project.getStatusOfProject().getStatusName();
             //temp.daysLeft = String.valueOf(Period.between(now, then).getDays() + " days");
             dtos.add(temp);

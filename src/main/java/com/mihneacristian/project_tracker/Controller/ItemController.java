@@ -6,12 +6,11 @@ import com.mihneacristian.project_tracker.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ItemController {
@@ -20,10 +19,23 @@ public class ItemController {
     ItemService itemService;
 
     @GetMapping(value = "/item", produces = "application/json")
-    public ResponseEntity<List<ItemDTO>> getValue() {
+    public ResponseEntity<List<ItemDTO>> getAllItems() {
 
-        List<ItemDTO> allItems = itemService.getAllItems();
-        return new ResponseEntity<List<ItemDTO>>(allItems, HttpStatus.OK);
+        List<ItemDTO> allItemsDTO = itemService.getAllItems();
+        return new ResponseEntity<List<ItemDTO>>(allItemsDTO, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/item/id/{itemId}", produces = "application/json")
+    public ResponseEntity<ItemDTO> getItemById(@PathVariable Integer itemId) {
+
+        Item itemById = itemService.findByItemId(itemId);
+        if (itemById != null) {
+            Item itemEntity = itemById;
+            ItemDTO itemDTO = new ItemDTO(itemEntity);
+            return new ResponseEntity<ItemDTO>(itemDTO, HttpStatus.OK);
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No item with the id " + itemId + " was found.");
+        }
     }
 
     @PostMapping(value = "/item", consumes = "application/json", produces = "application/json")

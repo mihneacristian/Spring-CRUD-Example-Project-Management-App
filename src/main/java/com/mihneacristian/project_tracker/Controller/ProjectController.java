@@ -66,7 +66,7 @@ public class ProjectController {
         if (projectService.isProjectIdPresent(projectId)) {
             projectService.deleteProjectById(projectId);
 
-            //TODO D ONOT THROW EXCEPTION DIRECTLy. RETURN AN EXCEPTION DTO
+            //TODO DO NOT THROW EXCEPTION DIRECTLY. RETURN AN EXCEPTION DTO
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No project with the id " + projectId + " was found.");
         }

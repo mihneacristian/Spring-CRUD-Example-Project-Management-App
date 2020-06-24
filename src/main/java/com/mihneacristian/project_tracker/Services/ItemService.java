@@ -20,7 +20,7 @@ public class ItemService {
     ItemRepository itemRepository;
 
     @Transactional
-    public Optional<Item> findByItemId(Integer id) {
+    public Item findByItemId(Integer id) {
 
         return itemRepository.findByItemId(id);
     }
@@ -43,6 +43,11 @@ public class ItemService {
             temp.itemId = item.getItemId();
             temp.title = item.getTitle();
             temp.description = item.getDescription();
+            temp.statusOfItem = item.getStatusOfItem().getStatusName();
+            temp.typeOfItem = item.getTypeOfItem().getName();
+            temp.teamMemberOfProjectLastName = item.getTeamMemberOfItem().getLastName();
+            temp.teamMemberOfProjectFirstName = item.getTeamMemberOfItem().getFirstName();
+            temp.teamMemberOfProjectEmailAddress = item.getTeamMemberOfItem().getEmailAddress();
             itemDTOS.add(temp);
         }
         return itemDTOS;
