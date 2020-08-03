@@ -60,7 +60,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("project/id/{projectId}")
+    @DeleteMapping("/project/id/{projectId}")
     public void deleteProjectById(@PathVariable Integer projectId) {
 
         if (projectService.isProjectIdPresent(projectId)) {

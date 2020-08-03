@@ -2,8 +2,6 @@ package com.mihneacristian.project_tracker.DTO;
 
 import com.mihneacristian.project_tracker.Entities.Item;
 
-import java.util.Optional;
-
 public class ItemDTO {
 
     public int itemId;
@@ -93,7 +91,6 @@ public class ItemDTO {
     public void setTeamMemberOfProjectEmailAddress(String teamMemberOfProjectEmailAddress) {
         this.teamMemberOfProjectEmailAddress = teamMemberOfProjectEmailAddress;
     }
-
 
     @Override
     public String toString() {

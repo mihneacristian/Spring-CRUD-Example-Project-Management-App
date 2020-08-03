@@ -16,19 +16,19 @@ public class TeamMembersService {
     TeamMembersRepository teamMembersRepository;
 
     @Transactional
-    public Optional<TeamMembers> findByLastName(String lastName) {
+    public TeamMembers findByLastName(String lastName) {
 
         return teamMembersRepository.findByLastName(lastName);
     }
 
     @Transactional
-    public Optional<TeamMembers> findByFirstName(String firstName) {
+    public TeamMembers findByFirstName(String firstName) {
 
         return teamMembersRepository.findByFirstName(firstName);
     }
 
     @Transactional
-    public Optional<TeamMembers> findByEmailAdddress(String emailAddress) {
+    public TeamMembers findByEmailAdddress(String emailAddress) {
 
         return teamMembersRepository.findByEmailAddress(emailAddress);
     }

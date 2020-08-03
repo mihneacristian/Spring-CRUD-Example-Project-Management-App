@@ -1,5 +1,7 @@
 package com.mihneacristian.project_tracker.DTO;
 
+import com.mihneacristian.project_tracker.Entities.TeamMembers;
+
 public class TeamMembersDTO {
 
     public int teamMemberid;
@@ -15,6 +17,13 @@ public class TeamMembersDTO {
         this.teamMemberLastName = teamMemberLastName;
         this.teamMemberFirstName = teamMemberFirstName;
         this.teamMemberEmailAddress = teamMemberEmailAddress;
+    }
+
+    public TeamMembersDTO(TeamMembers teamMembersEntity) {
+        this.teamMemberid = teamMembersEntity.getMemberId();
+        this.teamMemberFirstName = teamMembersEntity.getFirstName();
+        this.teamMemberLastName = teamMembersEntity.getLastName();
+        this.teamMemberEmailAddress = teamMembersEntity.getEmailAddress();
     }
 
     public int getTeamMemberid() {

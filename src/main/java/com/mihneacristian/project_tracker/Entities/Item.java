@@ -1,5 +1,8 @@
 package com.mihneacristian.project_tracker.Entities;
 
+import org.hibernate.Hibernate;
+import org.springframework.data.geo.Polygon;
+
 import javax.persistence.*;
 import java.util.List;
 

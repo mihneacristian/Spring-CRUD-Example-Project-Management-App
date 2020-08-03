@@ -8,10 +8,8 @@ import com.mihneacristian.project_tracker.Entities.Type;
 import com.mihneacristian.project_tracker.Repositories.CommentRepository;
 import com.mihneacristian.project_tracker.Repositories.ProjectRepository;
 import com.mihneacristian.project_tracker.Repositories.StatusRepository;
-import com.mihneacristian.project_tracker.Services.CommentService;
-import com.mihneacristian.project_tracker.Services.ProjectService;
-import com.mihneacristian.project_tracker.Services.StatusService;
-import com.mihneacristian.project_tracker.Services.TypeService;
+import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
+import com.mihneacristian.project_tracker.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -40,15 +38,17 @@ public class ProjectTrackerApplication {
 
          */
 
-        CommentRepository commentRepository = (CommentRepository) context.getBean("commentRepository", CommentRepository.class);
+        //CommentRepository commentRepository = (CommentRepository) context.getBean("commentRepository", CommentRepository.class);
         //System.out.println(commentService.getCommentById(1));
 
         //System.out.println(commentRepository.countAllComments());
         //System.out.println(commentRepository.selectMaxCommentId());
 
-        StatusRepository statusRepository = (StatusRepository) context.getBean("statusRepository", StatusRepository.class);
+        //StatusRepository statusRepository = (StatusRepository) context.getBean("statusRepository", StatusRepository.class);
         //System.out.println(statusRepository.getByStatusName("Done"));
 
+        //TeamMembersService teamMembersService = (TeamMembersService) context.getBean("teamMembersService", TeamMembersService.class);
+        //System.out.println(teamMembersService.findByFirstName("Iulia"));
 
     }
 }

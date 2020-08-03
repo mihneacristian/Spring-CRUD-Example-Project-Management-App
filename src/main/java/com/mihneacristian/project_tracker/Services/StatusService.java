@@ -1,11 +1,13 @@
 package com.mihneacristian.project_tracker.Services;
 
+import com.mihneacristian.project_tracker.DTO.StatusDTO;
 import com.mihneacristian.project_tracker.Entities.Status;
 import com.mihneacristian.project_tracker.Repositories.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,9 +31,19 @@ public class StatusService {
     }
 
     @Transactional
-    public List<Status> getAllStatus() {
+    public List<StatusDTO> getAllStatus() {
 
-        return statusRepository.findAll();
+        List<Status> allStatus = statusRepository.findAll();
+        List<StatusDTO> statusDTOS = new ArrayList<>();
+
+        for (Status status : allStatus) {
+            StatusDTO temp = new StatusDTO();
+            temp.statusId = status.getStatusId();
+            temp.statusName = status.getStatusName();
+            temp.statusOfProject = status.getStatusName();
+            statusDTOS.add(temp);
+        }
+        return statusDTOS;
     }
 
     @Transactional
