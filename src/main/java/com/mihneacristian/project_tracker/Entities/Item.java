@@ -1,5 +1,7 @@
 package com.mihneacristian.project_tracker.Entities;
 
+import com.mihneacristian.project_tracker.DTO.ItemDTO;
+import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import org.hibernate.Hibernate;
 import org.springframework.data.geo.Polygon;
 
@@ -29,7 +31,7 @@ public class Item {
     @JoinColumn(name = "type_Id")
     Type typeOfItem;
 
-    @OneToMany(mappedBy = "itemIdForThisComment")
+    @OneToMany(mappedBy = "itemIdForThisComment", cascade = CascadeType.ALL)
     List<Comment> comment;
 
     @ManyToOne
@@ -90,6 +92,15 @@ public class Item {
 
     public void setTeamMemberOfItem(TeamMembers teamMemberOfItem) {
         this.teamMemberOfItem = teamMemberOfItem;
+    }
+
+    public Item() {
+    }
+
+    public Item(ItemDTO itemDTO) {
+
+        this.title = itemDTO.title;
+        this.description = itemDTO.description;
     }
 
     @Override

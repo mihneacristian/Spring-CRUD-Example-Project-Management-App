@@ -1,7 +1,9 @@
 package com.mihneacristian.project_tracker.Controller;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
+import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.Item;
+import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,8 +40,34 @@ public class ItemController {
     }
 
     @PostMapping(value = "/item", consumes = "application/json", produces = "application/json")
-    public void createItem(@RequestBody Item item) {
+    public ResponseEntity<Item> createItem(@RequestBody ItemDTO itemDTO) {
 
-        itemService.saveNewItem(item);
+        Item item = itemService.saveNewItem(itemDTO);
+        return new ResponseEntity<Item>(item, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/item/id/{itemId}", consumes = "application/json")
+    public ResponseEntity<Item> updateProjectById(@PathVariable(name = "itemId") Integer itemId, @RequestBody ItemDTO itemDTO) {
+
+        Item p = itemService.findByItemId(itemId);
+        if (p != null) {
+            Item item = itemService.updateItemById(itemId, itemDTO);//todo save
+            return new ResponseEntity<Item>(item, HttpStatus.OK);
+        }
+        else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Could not find item with the id: " + itemId);
+        }
+    }
+
+    @DeleteMapping("/item/id/{itemId}")
+    public void deleteProjectById(@PathVariable Integer itemId) {
+
+        if (itemService.isItemIdPresent(itemId)) {
+            itemService.deleteItemById(itemId);
+
+            //TODO DO NOT THROW EXCEPTION DIRECTLY. RETURN AN EXCEPTION DTO
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No item with the id " + itemId + " was found.");
+        }
     }
 }

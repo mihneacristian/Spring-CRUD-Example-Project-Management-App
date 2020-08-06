@@ -14,7 +14,7 @@ public class Comment {
     @Column(name = "text")
     String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "item_id")
     Item itemIdForThisComment;
 

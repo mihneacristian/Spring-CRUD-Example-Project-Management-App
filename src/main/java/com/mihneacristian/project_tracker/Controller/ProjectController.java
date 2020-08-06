@@ -40,7 +40,7 @@ public class ProjectController {
         return new ResponseEntity<List<ProjectDTO>>(allProjects, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/project", consumes = "application/json")
+    @PostMapping(value = "/add-project", consumes = "application/json")
     public ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO) {
 
         Project project = projectService.saveProject(projectDTO);

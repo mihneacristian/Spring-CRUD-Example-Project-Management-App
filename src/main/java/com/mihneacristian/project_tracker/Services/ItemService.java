@@ -20,9 +20,22 @@ public class ItemService {
     ItemRepository itemRepository;
 
     @Transactional
+    public Boolean isItemIdPresent(Integer id) {
+
+        return itemRepository.findById(id).isPresent();
+    }
+
+    @Transactional
     public Item findByItemId(Integer id) {
 
-        return itemRepository.findByItemId(id);
+        Optional<Item> byId = itemRepository.findByItemId(id);
+
+        if(byId.isPresent()){
+            return byId.get();
+        } else {
+            throw new RuntimeException("Could not find a project with the id: " + id);
+            // todo ELSE throw exception
+        }
     }
 
     @Transactional
@@ -54,9 +67,11 @@ public class ItemService {
     }
 
     @Transactional
-    public void saveNewItem(Item item) {
+    public Item saveNewItem(ItemDTO itemDTO) {
 
-        itemRepository.save(item);
+        Item itemToBeSaved = new Item(itemDTO);
+        Item savedItem = itemRepository.save(itemToBeSaved);
+        return savedItem;
     }
 
     @Transactional

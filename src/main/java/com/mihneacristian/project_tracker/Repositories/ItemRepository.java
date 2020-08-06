@@ -1,6 +1,7 @@
 package com.mihneacristian.project_tracker.Repositories;
 
 import com.mihneacristian.project_tracker.Entities.Item;
+import com.mihneacristian.project_tracker.Entities.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Integer> {
-
-    Item findByItemId(Integer itemId);
+    Optional<Item> findByItemId(Integer itemId);
 
     List<Item> findByTitle(String title);
 }
