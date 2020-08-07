@@ -1,4 +1,4 @@
-package com.mihneacristian.project_tracker.Controller;
+package com.mihneacristian.project_tracker.RestControllers;
 
 import com.mihneacristian.project_tracker.DTO.StatusDTO;
 import com.mihneacristian.project_tracker.Services.StatusService;

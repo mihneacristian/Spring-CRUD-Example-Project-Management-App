@@ -1,9 +1,7 @@
-package com.mihneacristian.project_tracker.Controller;
+package com.mihneacristian.project_tracker.RestControllers;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
-import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.Item;
-import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

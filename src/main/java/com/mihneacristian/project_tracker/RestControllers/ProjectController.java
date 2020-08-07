@@ -1,4 +1,4 @@
-package com.mihneacristian.project_tracker.Controller;
+package com.mihneacristian.project_tracker.RestControllers;
 
 import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.Project;
@@ -10,23 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/projects/v1")
+@RequestMapping("/api/project/v1")
 public class ProjectController {
-
-    ProjectRepository projectRepository;
-
-    public ProjectController(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
-    }
 
     @Autowired
     ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     @GetMapping("/project/{projectId}")
     public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Integer projectId) {

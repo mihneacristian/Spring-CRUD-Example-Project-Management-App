@@ -7,7 +7,9 @@
     <title>Home</title>
 </head>
 <body>
+
 <div th:replace="fragments/header :: header"></div>
+
 <main role="main">
     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
         <div class="col-md-5 p-lg-5 mx-auto my-5">
@@ -19,21 +21,21 @@
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
 
-<div th:replace="fragments/page-title :: page-title ('Project Management System')"></div>
+<div th:replace="fragments/page-title :: page-title ('A Simplified Approach to Project Management')"></div>
 <br><br>
 <div class="container">
     <div class="row">
         <div class="col-sm">
                 <div class="card-body">
                     <h5 class="card-title">Project Admin Page</h5>
-                    <p class="card-text">Manage projects and their assigned Role.</p>
+                    <p class="card-text">Manage your team's projects.</p>
                     <a class="btn btn-primary" href="/projects">Projects</a>
                 </div>
         </div>
         <div class="col-sm">
                 <div class="card-body">
                     <h5 class="card-title">Item Admin Page</h5>
-                    <p class="card-text">Manage items and their assigned Role.</p>
+                    <p class="card-text">Manage your team's items.</p>
                     <a class="btn btn-primary" href="/users">Items</a>
                 </div>
         </div>

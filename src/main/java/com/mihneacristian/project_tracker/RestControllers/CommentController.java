@@ -1,7 +1,6 @@
-package com.mihneacristian.project_tracker.Controller;
+package com.mihneacristian.project_tracker.RestControllers;
 
 import com.mihneacristian.project_tracker.DTO.CommentDTO;
-import com.mihneacristian.project_tracker.Entities.Comment;
 import com.mihneacristian.project_tracker.Services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
