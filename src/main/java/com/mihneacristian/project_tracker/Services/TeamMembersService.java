@@ -1,12 +1,16 @@
 package com.mihneacristian.project_tracker.Services;
 
+import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.DTO.TeamMembersDTO;
+import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Entities.TeamMembers;
 import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,5 +49,21 @@ public class TeamMembersService {
     public void deleteTeamMemberById(Integer id) {
 
         teamMembersRepository.deleteById(id);
+    }
+
+    @Transactional
+    public List<TeamMembersDTO> getAllMembers() {
+
+        List<TeamMembers> all = teamMembersRepository.findAll();
+        List<TeamMembersDTO> dtos = new ArrayList<>();
+        for (TeamMembers member : all) {
+            TeamMembersDTO temp = new TeamMembersDTO();
+            temp.teamMemberid = member.getMemberId();
+            temp.teamMemberLastName = member.getLastName();
+            temp.teamMemberFirstName = member.getFirstName();
+            temp.teamMemberEmailAddress = member.getEmailAddress();
+            dtos.add(temp);
+        }
+        return dtos;
     }
 }

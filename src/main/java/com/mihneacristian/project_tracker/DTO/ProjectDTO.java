@@ -8,10 +8,9 @@ public class ProjectDTO {
     public String projectName;
     public String description;
     public String statusName;
-    /*public String projectStatus;
     public String teamMemberOfProjectFirstName;
     public String teamMemberOfProjectLastName;
-    public String teamMemberOfProjectEmailAddress;*/
+    public String teamMemberOfProjectEmailAddress;
 
     public ProjectDTO() {
     }
@@ -20,9 +19,9 @@ public class ProjectDTO {
         this.projectId = projectEntity.getProjectId();
         this.projectName = projectEntity.getName();
         this.description = projectEntity.getDescription();
-        /*this.teamMemberOfProjectLastName = projectEntity.getTeamMemberOfProject().getLastName();
+        this.teamMemberOfProjectLastName = projectEntity.getTeamMemberOfProject().getLastName();
         this.teamMemberOfProjectFirstName = projectEntity.getTeamMemberOfProject().getFirstName();
-        this.teamMemberOfProjectEmailAddress = projectEntity.getTeamMemberOfProject().getEmailAddress();*/
+        this.teamMemberOfProjectEmailAddress = projectEntity.getTeamMemberOfProject().getEmailAddress();
 
         if (projectEntity.getStatusOfProject() != null) {
 
@@ -33,7 +32,7 @@ public class ProjectDTO {
         }
     }
 
-    /*public String getTeamMemberOfProjectFirstName() {
+    public String getTeamMemberOfProjectFirstName() {
         return teamMemberOfProjectFirstName;
     }
 
@@ -55,8 +54,7 @@ public class ProjectDTO {
 
     public void setTeamMemberOfProjectEmailAddress(String teamMemberOfProjectEmailAddress) {
         this.teamMemberOfProjectEmailAddress = teamMemberOfProjectEmailAddress;
-    }*/
-    //public String daysLeft;
+    }
 
     public int getProjectId() {
         return projectId;
@@ -97,6 +95,9 @@ public class ProjectDTO {
                 ", projectName='" + projectName + '\'' +
                 ", description='" + description + '\'' +
                 ", statusName='" + statusName + '\'' +
+                ", teamMemberOfProjectFirstName='" + teamMemberOfProjectFirstName + '\'' +
+                ", teamMemberOfProjectLastName='" + teamMemberOfProjectLastName + '\'' +
+                ", teamMemberOfProjectEmailAddress='" + teamMemberOfProjectEmailAddress + '\'' +
                 '}';
     }
 }

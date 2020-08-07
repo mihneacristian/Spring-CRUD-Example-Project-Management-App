@@ -76,19 +76,15 @@ public class ProjectService {
 
         List<Project> all = projectRepository.findAll();
         List<ProjectDTO> dtos = new ArrayList<>();
-        //LocalDate now = LocalDate.now();
-        //LocalDate then = LocalDate.of(2020, 6, 1);
         for (Project project : all) {
             ProjectDTO temp = new ProjectDTO();
             temp.projectId = project.getProjectId();
             temp.projectName = project.getName();
             temp.description = project.getDescription();
             temp.statusName = project.getStatusOfProject().getStatusName();
-/*            temp.teamMemberOfProjectLastName = project.getTeamMemberOfProject().getLastName();
+            temp.teamMemberOfProjectLastName = project.getTeamMemberOfProject().getLastName();
             temp.teamMemberOfProjectFirstName = project.getTeamMemberOfProject().getFirstName();
-            temp.teamMemberOfProjectEmailAddress = project.getTeamMemberOfProject().getEmailAddress();*/
-            //temp.projectStatus = project.getStatusOfProject().getStatusName();
-            //temp.daysLeft = String.valueOf(Period.between(now, then).getDays() + " days");
+            temp.teamMemberOfProjectEmailAddress = project.getTeamMemberOfProject().getEmailAddress();
             dtos.add(temp);
         }
         return dtos;

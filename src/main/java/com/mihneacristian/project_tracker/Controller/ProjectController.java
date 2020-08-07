@@ -2,6 +2,7 @@ package com.mihneacristian.project_tracker.Controller;
 
 import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.Project;
+import com.mihneacristian.project_tracker.Repositories.ProjectRepository;
 import com.mihneacristian.project_tracker.Services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,16 +10,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/projects/v1")
 public class ProjectController {
+
+    ProjectRepository projectRepository;
+
+    public ProjectController(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     @Autowired
     ProjectService projectService;
 
-    @GetMapping("/project/id/{projectId}")
+    @GetMapping("/project/{projectId}")
     public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Integer projectId) {
 
         Project projectById = projectService.getProjectById(projectId);
@@ -47,7 +57,7 @@ public class ProjectController {
         return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/project/id/{projectId}", consumes = "application/json")
+    @PutMapping(value = "/project/{projectId}", consumes = "application/json")
     public ResponseEntity<Project> updateProjectById(@PathVariable(name = "projectId") Integer projectId, @RequestBody ProjectDTO projectDTO) {
 
         Project p = projectService.getProjectById(projectId);
@@ -60,7 +70,7 @@ public class ProjectController {
         }
     }
 
-    @DeleteMapping("/project/id/{projectId}")
+    @DeleteMapping("/project/{projectId}")
     public void deleteProjectById(@PathVariable Integer projectId) {
 
         if (projectService.isProjectIdPresent(projectId)) {
