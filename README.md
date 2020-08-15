@@ -1,1 +1,1 @@
-# Spring-Project-Management-App
+# Spring CRUD Example - Simple Project Management App
