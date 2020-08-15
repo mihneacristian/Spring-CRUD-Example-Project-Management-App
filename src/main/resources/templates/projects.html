@@ -41,14 +41,16 @@
                     <select name="project_member_id" id="project_members_id" v-model="project_member_id">
                         <option disabled value="">Please select a Team Member</option>
                         <option :selected="member.teamMemberid == project_member_id" v-bind:value="member.teamMemberid"
-                                v-for="member in members">{{ member.teamMemberLastName }} {{ member.teamMemberFirstName }} </option>
+                                v-for="member in members">{{ member.teamMemberLastName }} {{ member.teamMemberFirstName
+                            }}
+                        </option>
                     </select>
                 </div>
                 <div class="form-group row">
                     <label for="project_statuses_id" class="col-sm-4 col-form-label">Status</label>
-                    <select name="project_status_id" id="project_statuses_id" v-model="project_status">
+                    <select name="project_status_id" id="project_statuses_id" v-model="project_status_name">
                         <option disabled value="">Please select the Status</option>
-                        <option :selected="status.statusId == project_status_id" v-bind:value="status.statusId"
+                        <option :selected="status.statusName == project_status_name" v-bind:value="status.statusName"
                                 v-for="status in statuses">{{ status.statusName }}
                         </option>
                     </select>
@@ -83,7 +85,7 @@
             <td>{{ project.teamMemberOfProjectLastName }} {{ project.teamMemberOfProjectFirstName }}</td>
             <td align="center">
                 <button class="btn btn-primary" v-on:click="editProject(project)">Edit</button>
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" v-on:click="deleteProject(project)">Delete</button>
             </td>
         </tr>
         </tbody>
@@ -106,7 +108,7 @@
                 project_description: '',
                 project_status: '',
                 project_member_id: '',
-                project_status_id: ''
+                project_status_name: ''
             }
         },
         mounted() {
@@ -126,12 +128,11 @@
                     .then(response => (this.statuses = response.data))
             },
             editProject: function (project) {
-                console.log('Test');
                 this.project_id = project.projectId;
                 this.project_name = project.projectName;
                 this.project_description = project.description;
                 this.project_member_id = project.teamMemberId;
-                this.project_status = project.statusName;
+                this.project_status_name = project.statusName;
                 document.getElementById('projectForm')
                     .setAttribute("class", document.getElementById('projectForm')
                         .getAttribute("class") + " show");
@@ -144,16 +145,41 @@
                             "projectName": this.project_name,
                             "description": this.project_description,
                             "teamMemberId": this.project_member_id,
-                            "statusName": this.project_status
+                            "statusName": this.project_status_name
                         })
                         .then(savedProject => {
                             this.projects.push(savedProject.data)
                             this.project_name = '';
                             this.project_description = '';
                             this.project_member_id = '';
-                            this.project_status = '';
+                            this.project_status_name = '';
                         })
+                    console.log('New project added');
+                } else {
+                    axios
+                        .put("api/v1/update-project/" + this.project_id, {
+                            "projectId": this.projectId,
+                            "projectName": this.project_name,
+                            "description": this.project_description,
+                            "teamMemberId": this.project_member_id,
+                            "statusName": this.project_status_name
+                        })
+                        .then(editedProject => {
+                            this.getProjects();
+                            this.project_id = '';
+                            this.project_name = '';
+                            this.project_description = '';
+                            this.project_member_id = '';
+                            this.project_status_name = '';
+                        })
+                    console.log("Project updated");
                 }
+            },
+            deleteProject: async function (project) {
+                await axios
+                    .delete("/api/v1/project/" + project.projectId);
+                this.getProjects();
+                console.log('Project deleted');
             }
         }
     })

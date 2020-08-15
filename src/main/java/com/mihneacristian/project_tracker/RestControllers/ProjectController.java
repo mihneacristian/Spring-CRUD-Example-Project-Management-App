@@ -52,7 +52,7 @@ public class ProjectController {
         return new ResponseEntity<Project>(project, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/project/{projectId}", consumes = "application/json")
+    @PutMapping(value = "/update-project/{projectId}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Project> updateProjectById(@PathVariable(name = "projectId") Integer projectId, @RequestBody ProjectDTO projectDTO) {
 
         Project p = projectService.getProjectById(projectId);
