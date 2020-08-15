@@ -30,10 +30,11 @@ public class Project {
     public Project() {
     }
 
-    public Project(ProjectDTO projectDTO, Status status) {
+    public Project(ProjectDTO projectDTO, TeamMembers member, Status status) {
 
         this.name = projectDTO.projectName;
         this.description = projectDTO.description;
+        this.teamMemberOfProject = member;
         this.statusOfProject = status;
     }
 
@@ -82,7 +83,8 @@ public class Project {
         return "Project{" +
                 "projectId=" + projectId +
                 ", name='" + name + '\'' +
-                " description='" + description + '\'' +
+                ", description='" + description + '\'' +
+                ", teamMemberOfProject=" + teamMemberOfProject +
                 ", statusOfProject=" + statusOfProject +
                 '}';
     }

@@ -3,9 +3,11 @@ package com.mihneacristian.project_tracker.Services;
 import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Entities.Status;
+import com.mihneacristian.project_tracker.Entities.TeamMembers;
 import com.mihneacristian.project_tracker.EntityConverter.ProjectEntityConverter;
 import com.mihneacristian.project_tracker.Repositories.ProjectRepository;
 import com.mihneacristian.project_tracker.Repositories.StatusRepository;
+import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class ProjectService {
 
     @Autowired
     StatusRepository statusRepository;
+
+    @Autowired
+    TeamMembersRepository teamMembersRepository;
 
     @Autowired
     ProjectEntityConverter projectEntityConverter;
@@ -55,6 +60,16 @@ public class ProjectService {
     public Project saveProject(ProjectDTO projectDTO) {
 
         Optional<Status> byStatusName = statusRepository.findByStatusName(projectDTO.statusName);
+        Optional<TeamMembers> byMemberId = teamMembersRepository.findByMemberId(projectDTO.teamMemberId);
+
+        TeamMembers teamMembers = null;
+        if (!byMemberId.isPresent()) {
+
+            TeamMembers newMember = new TeamMembers(projectDTO.teamMemberId);
+            teamMembers = teamMembersRepository.save(newMember);
+        } else {
+            teamMembers = byMemberId.get();
+        }
 
         Status status = null;
         if (!byStatusName.isPresent()) {
@@ -66,7 +81,7 @@ public class ProjectService {
             status = byStatusName.get();
         }
 
-        Project projectToBeSaved = new Project(projectDTO, status);
+        Project projectToBeSaved = new Project(projectDTO, teamMembers, status);
         Project savedProject = projectRepository.save(projectToBeSaved);
         return savedProject;
     }

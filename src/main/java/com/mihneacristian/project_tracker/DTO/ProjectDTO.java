@@ -8,6 +8,7 @@ public class ProjectDTO {
     public String projectName;
     public String description;
     public String statusName;
+    public Integer teamMemberId;
     public String teamMemberOfProjectFirstName;
     public String teamMemberOfProjectLastName;
     public String teamMemberOfProjectEmailAddress;
@@ -23,6 +24,13 @@ public class ProjectDTO {
         this.teamMemberOfProjectFirstName = projectEntity.getTeamMemberOfProject().getFirstName();
         this.teamMemberOfProjectEmailAddress = projectEntity.getTeamMemberOfProject().getEmailAddress();
 
+        if (projectEntity.getTeamMemberOfProject() != null) {
+
+            this.teamMemberId = projectEntity.getTeamMemberOfProject().getMemberId();
+        } else {
+            this.teamMemberId = 1;
+        }
+
         if (projectEntity.getStatusOfProject() != null) {
 
             this.statusName = projectEntity.getStatusOfProject().getStatusName();
@@ -30,6 +38,14 @@ public class ProjectDTO {
 
             this.statusName = "Undefined Status";
         }
+    }
+
+    public Integer getTeamMemberId() {
+        return teamMemberId;
+    }
+
+    public void setTeamMemberId(Integer teamMemberId) {
+        this.teamMemberId = teamMemberId;
     }
 
     public String getTeamMemberOfProjectFirstName() {
@@ -95,6 +111,7 @@ public class ProjectDTO {
                 ", projectName='" + projectName + '\'' +
                 ", description='" + description + '\'' +
                 ", statusName='" + statusName + '\'' +
+                ", teamMemberId='" + teamMemberId + '\'' +
                 ", teamMemberOfProjectFirstName='" + teamMemberOfProjectFirstName + '\'' +
                 ", teamMemberOfProjectLastName='" + teamMemberOfProjectLastName + '\'' +
                 ", teamMemberOfProjectEmailAddress='" + teamMemberOfProjectEmailAddress + '\'' +

@@ -20,6 +20,19 @@ public class TeamMembersService {
     TeamMembersRepository teamMembersRepository;
 
     @Transactional
+    public TeamMembers getMemberById(Integer id){
+
+        Optional<TeamMembers> byId = teamMembersRepository.findByMemberId(id);
+
+        if(byId.isPresent()){
+            return byId.get();
+        } else {
+            throw new RuntimeException("Could not find a member with the id: " + id);
+            // todo ELSE throw exception
+        }
+    }
+
+    @Transactional
     public TeamMembers findByLastName(String lastName) {
 
         return teamMembersRepository.findByLastName(lastName);
@@ -65,5 +78,24 @@ public class TeamMembersService {
             dtos.add(temp);
         }
         return dtos;
+    }
+
+    @Transactional
+    public TeamMembers updateMemberById(Integer id, TeamMembersDTO memberToBeUpdated) {
+
+        TeamMembers teamMembers;
+
+        Optional<TeamMembers> teamMembersOptional = teamMembersRepository.findById(id);
+        if (!teamMembersOptional.isPresent()) {
+
+            throw new RuntimeException("Could not find member with the id: " + id);
+        } else {
+
+            teamMembers = teamMembersOptional.get();
+            teamMembers.setFirstName(memberToBeUpdated.teamMemberFirstName);
+            teamMembers.setLastName(memberToBeUpdated.teamMemberLastName);
+            teamMembers.setEmailAddress(memberToBeUpdated.teamMemberEmailAddress);
+        }
+        return teamMembersRepository.save(teamMembers);
     }
 }

@@ -35,6 +35,9 @@ public class TeamMembers {
     public TeamMembers() {
     }
 
+    public TeamMembers(Integer teamMemberId) {
+    }
+
     public TeamMembers(TeamMembersDTO teamMembersDTO) {
         this.lastName = teamMembersDTO.teamMemberLastName;
         this.firstName = teamMembersDTO.teamMemberFirstName;

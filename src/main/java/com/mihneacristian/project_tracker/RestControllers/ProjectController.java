@@ -13,7 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/project/v1")
+@RequestMapping("/api/v1")
 public class ProjectController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class ProjectController {
         return new ResponseEntity<List<ProjectDTO>>(allProjects, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/add-project", consumes = "application/json")
+    @PostMapping(value = "add-new-project", consumes = "application/json")
     public ResponseEntity<Project> createProject(@RequestBody ProjectDTO projectDTO) {
 
         Project project = projectService.saveProject(projectDTO);

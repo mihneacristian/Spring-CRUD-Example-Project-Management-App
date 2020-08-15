@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/main.css">
+    <meta charset="UTF-8">
+    <title>Team Members</title>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/page-title :: page-title ('Team Members Administrative Page')"></div>
+
+<br><br>
+
+<div class="container" id="main">
+
+    <form v-on:submit.prevent="postMember">
+        <div class="card mb-auto">
+            <div aria-controls="memberForm" aria-expanded="false" class="card-header" data-target="#memberForm"
+                 data-toggle="collapse" id="formHeader" style="cursor: pointer">
+                <div class="float-left">New/Edit Member</div>
+                <div class="float-right">+</div>
+            </div>
+            <div class="card card-body collapse" id="memberForm">
+                <div class="form-group row">
+                    <label for="firstName" class="col-sm-4 col-form-label">First Name</label>
+                    <input id="memberId" type="hidden" v-model="memberId">
+                    <input id="firstName" class="form-control col-sm-8" placeholder="First Name" type="text"
+                           v-model="firstName"/>
+                </div>
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-4 col-form-label">Last Name</label>
+                    <input id="lastName" class="form-control col-sm-8" placeholder="Last Name"
+                           type="text"
+                           v-model="lastName"/>
+                </div>
+                <div class="form-group row">
+                    <label for="emailAddress" class="col-sm-4 col-form-label">Email Address</label>
+                    <input id="emailAddress" class="form-control col-sm-8" placeholder="Email Address"
+                           type="text"
+                           v-model="emailAddress"/>
+                </div>
+                <div class="form-group row">
+                    <div class="col col-sm-4"></div>
+                    <input class="btn btn-primary col col-sm-8" type="submit" value="Save">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br><br>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Email address</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="member in members">
+            <td>{{ member.teamMemberid }}</td>
+            <td>{{ member.teamMemberLastName }}</td>
+            <td>{{ member.teamMemberFirstName }}</td>
+            <td>{{ member.teamMemberEmailAddress }}</td>
+            <td align="center">
+                <button class="btn btn-primary" v-on:click="editMember(member)">Edit</button>
+                <button class="btn btn-danger" v-on:click="deleteMember(member)">Delete</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="webjars/vue/vue.min.js"></script>
+<script src="webjars/axios/dist/axios.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#main',
+        data() {
+            return {
+                members: null,
+                memberId: null,
+                firstName: null,
+                lastName: null,
+                emailAddress: null
+            }
+        },
+        mounted() {
+            this.getMembers();
+        },
+        methods: {
+            getMembers: function () {
+                console.log('Getting members ...');
+                axios
+                    .get("/api/v1/members")
+                    .then(response => (this.members = response.data));
+
+            },
+            postMember: function (member) {
+                if (this.memberId == '' || this.memberId == null) {
+                    axios
+                        .post("api/v1/add-new-member/", {
+                            "teamMemberFirstName": this.firstName,
+                            "teamMemberLastName": this.lastName,
+                            "teamMemberEmailAddress": this.emailAddress
+                        })
+                        .then(addedMember => {
+                            this.members.push(addedMember.data);
+                            this.firstName = '';
+                            this.lastName = '';
+                            this.emailAddress = '';
+                        })
+                    console.log('New user added');
+                } else {
+                    axios
+                        .put("api/v1/update-member/" + this.memberId, {
+                            "teamMemberid": this.memberId,
+                            "teamMemberFirstName": this.firstName,
+                            "teamMemberLastName": this.lastName,
+                            "teamMemberEmailAddress": this.emailAddress,
+                        })
+                        .then(addedMember => {
+                            this.getMembers();
+                            this.memberId = '';
+                            this.firstName = '';
+                            this.lastName = '';
+                            this.emailAddress = '';
+                        })
+                    console.log('User updated');
+                }
+            },
+            editMember: function (member) {
+                this.memberId = member.teamMemberid;
+                this.firstName = member.teamMemberFirstName;
+                this.lastName = member.teamMemberLastName;
+                this.emailAddress = member.teamMemberEmailAddress;
+                document.getElementById('memberForm')
+                    .setAttribute("class", document.getElementById('memberForm').getAttribute("class") + " show");
+            },
+            deleteMember: async function (member) {
+                await axios
+                    .delete("/api/v1/member/" + member.teamMemberid);
+                this.getMembers();
+                console.log('Member deleted');
+            }
+        },
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+</body>
+</html>

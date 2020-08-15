@@ -12,12 +12,17 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/v1")
 public class ItemController {
 
     @Autowired
     ItemService itemService;
 
-    @GetMapping(value = "/item", produces = "application/json")
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @GetMapping(value = "/items", produces = "application/json")
     public ResponseEntity<List<ItemDTO>> getAllItems() {
 
         List<ItemDTO> allItemsDTO = itemService.getAllItems();
