@@ -14,6 +14,56 @@
 <br><br>
 
 <div class="container" id="main">
+
+    <form v-on:submit.prevent="postItem">
+        <div class="card mb-auto">
+            <div aria-controls="itemForm" aria-expanded="false" class="card-header" data-target="#itemForm"
+                 data-toggle="collapse" id="formHeader" style="cursor: pointer">
+                <div class="float-left">New/Edit Project</div>
+                <div class="float-right">+</div>
+            </div>
+            <div class="card card-body collapse" id="itemForm">
+                <div class="form-group row">
+                    <label for="projectName" class="col-sm-4 col-form-label">Project title</label>
+                    <input id="project_id" type="hidden" v-model="project_id">
+                    <input id="projectName" class="form-control col-sm-8" placeholder="Project title" type="text"
+                           v-model="project_name"/>
+                </div>
+                <div class="form-group row">
+                    <label for="project_description" class="col-sm-4 col-form-label">Project description</label>
+                    <input id="project_description" class="form-control col-sm-8" placeholder="Project description"
+                           type="text"
+                           v-model="project_description"/>
+                </div>
+                <div class="form-group row">
+                    <label for="project_members_id" class="col-sm-4 col-form-label">Team members</label>
+                    <select name="project_member_id" id="project_members_id" v-model="project_member_id">
+                        <option disabled value="">Please select a Team Member</option>
+                        <option :selected="member.teamMemberid == project_member_id" v-bind:value="member.teamMemberid"
+                                v-for="member in members">{{ member.teamMemberLastName }} {{ member.teamMemberFirstName
+                            }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <label for="project_statuses_id" class="col-sm-4 col-form-label">Status</label>
+                    <select name="project_status_id" id="project_statuses_id" v-model="project_status_name">
+                        <option disabled value="">Please select the Status</option>
+                        <option :selected="status.statusName == project_status_name" v-bind:value="status.statusName"
+                                v-for="status in statuses">{{ status.statusName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <div class="col col-sm-4"></div>
+                    <input class="btn btn-primary col col-sm-8" type="submit" value="Save">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <br><br>
+
     <table class="table table-striped table-bordered">
         <thead>
         <tr>
@@ -45,7 +95,15 @@
         el: '#main',
         data() {
             return {
-                items: null
+                items: '',
+                statuses: '',
+                members: '',
+                item_id: '',
+                item_name: '',
+                item_description: '',
+                item_status: '',
+                item_type: '',
+                item_member_id: ''
             }
         },
         mounted() {
@@ -53,11 +111,31 @@
         },
         methods: {
             getItems: function () {
-                console.log('Test');
+                console.log('Getting items ...');
                 axios
                     .get("/api/v1/items")
                     .then(response => (this.items = response.data));
-
+            },
+            postItem: function (item) {
+                if (this.item_id == '' || this.item_id == null) {
+                    axios
+                        .post("api/v1/add-new-item", {
+                            "itemId": this.item_id,
+                            "title": this.item_name,
+                            "description": this.item_description,
+                            "statusOfItem": this.item_status,
+                            "typeOfItem": this.item_type,
+                            "teamMemberId": this.item_member_id
+                        })
+                        .then(savedItem => {
+                            this.projects.push(savedItem.data)
+                            this.item_name = '';
+                            this.item_description = '';
+                            this.item_status = '';
+                            this.item_type= '';
+                            this.item_member_id= '';
+                        })
+                    console.log('New item added');
             }
         }
     })

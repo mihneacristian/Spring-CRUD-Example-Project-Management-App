@@ -9,6 +9,7 @@ public class ItemDTO {
     public String description;
     public String statusOfItem;
     public String typeOfItem;
+    public Integer teamMemberId;
     public String teamMemberOfProjectFirstName;
     public String teamMemberOfProjectLastName;
     public String teamMemberOfProjectEmailAddress;
