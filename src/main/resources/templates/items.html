@@ -45,6 +45,15 @@
                     </select>
                 </div>
                 <div class="form-group row">
+                    <label for="item_type" class="col-sm-4 col-form-label">Type</label>
+                    <select name="item_type" id="item_type" v-model="item_type">
+                        <option disabled value="">Please select the Type</option>
+                        <option :selected="type.typeName == item_type" v-bind:value="type.typeName"
+                                v-for="type in types">{{ type.typeName }}
+                        </option>
+                    </select>
+                </div>
+                <div class="form-group row">
                     <label for="item_member_id" class="col-sm-4 col-form-label">Team members</label>
                     <select name="item_member_id" id="item_member_id" v-model="item_member_id">
                         <option disabled value="">Please select a Team Member</option>
@@ -86,7 +95,7 @@
             <td>{{ item.typeOfItem }}</td>
             <td>{{ item.teamMemberOfProjectLastName }} {{ item.teamMemberOfProjectFirstName }}</td>
             <td align="center">
-                <button class="btn btn-primary" >Edit</button>
+                <button class="btn btn-primary" v-on:click="editItem(item)">Edit</button>
                 <button class="btn btn-danger" v-on:click="deleteItem(item)">Delete</button>
             </td>
         </tr>
@@ -127,18 +136,18 @@
                     .then(response => (this.members = response.data));
                 axios
                     .get("/api/v1/status")
-                    .then(response => (this.statuses = response.data))
+                    .then(response => (this.statuses = response.data));
                 axios
                     .get("/api/v1/types")
                     .then(response => (this.types = response.data))
             },
-            editItem: function () {
+            editItem: function (item) {
                 this.item_id = item.itemId;
                 this.item_name = item.title;
                 this.item_description = item.description;
                 this.item_status = item.statusOfItem;
                 this.item_type = item.typeOfItem;
-                this.item_member_id = item.teamMemberId;_
+                this.item_member_id = item.teamMemberId;
                 document.getElementById('itemForm')
                     .setAttribute("class", document.getElementById('itemForm')
                         .getAttribute("class") + " show");

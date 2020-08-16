@@ -97,6 +97,7 @@ public class ProjectService {
             temp.projectName = project.getName();
             temp.description = project.getDescription();
             temp.statusName = project.getStatusOfProject().getStatusName();
+            temp.teamMemberId = project.getTeamMemberOfProject().getMemberId();
             temp.teamMemberOfProjectLastName = project.getTeamMemberOfProject().getLastName();
             temp.teamMemberOfProjectFirstName = project.getTeamMemberOfProject().getFirstName();
             temp.teamMemberOfProjectEmailAddress = project.getTeamMemberOfProject().getEmailAddress();
