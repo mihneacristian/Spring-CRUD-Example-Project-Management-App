@@ -129,8 +129,8 @@
                     .get("/api/v1/status")
                     .then(response => (this.statuses = response.data))
                 axios
-                    .get("/api/v1/status")
-                    .then(response => (this.statuses = response.data))
+                    .get("/api/v1/types")
+                    .then(response => (this.types = response.data))
             },
             editItem: function () {
                 this.item_id = item.itemId;
