@@ -49,7 +49,7 @@ public class ItemController {
         return new ResponseEntity<Item>(item, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/item/id/{itemId}", consumes = "application/json")
+    @PutMapping(value = "/update-item/{itemId}", consumes = "application/json")
     public ResponseEntity<Item> updateProjectById(@PathVariable(name = "itemId") Integer itemId, @RequestBody ItemDTO itemDTO) {
 
         Item p = itemService.findByItemId(itemId);
@@ -62,7 +62,7 @@ public class ItemController {
         }
     }
 
-    @DeleteMapping("/item/id/{itemId}")
+    @DeleteMapping("/item/{itemId}")
     public void deleteProjectById(@PathVariable Integer itemId) {
 
         if (itemService.isItemIdPresent(itemId)) {

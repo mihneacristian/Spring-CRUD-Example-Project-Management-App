@@ -58,6 +58,7 @@ public class ItemService {
             temp.description = item.getDescription();
             temp.statusOfItem = item.getStatusOfItem().getStatusName();
             temp.typeOfItem = item.getTypeOfItem().getName();
+            temp.teamMemberId = item.getTeamMemberOfItem().getMemberId();
             temp.teamMemberOfProjectLastName = item.getTeamMemberOfItem().getLastName();
             temp.teamMemberOfProjectFirstName = item.getTeamMemberOfItem().getFirstName();
             temp.teamMemberOfProjectEmailAddress = item.getTeamMemberOfItem().getEmailAddress();

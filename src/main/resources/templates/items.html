@@ -24,33 +24,33 @@
             </div>
             <div class="card card-body collapse" id="itemForm">
                 <div class="form-group row">
-                    <label for="projectName" class="col-sm-4 col-form-label">Project title</label>
-                    <input id="project_id" type="hidden" v-model="project_id">
-                    <input id="projectName" class="form-control col-sm-8" placeholder="Project title" type="text"
-                           v-model="project_name"/>
+                    <label for="itemName" class="col-sm-4 col-form-label">Item title</label>
+                    <input id="item_id" type="hidden" v-model="item_id">
+                    <input id="itemName" class="form-control col-sm-8" placeholder="Item title" type="text"
+                           v-model="item_name"/>
                 </div>
                 <div class="form-group row">
-                    <label for="project_description" class="col-sm-4 col-form-label">Project description</label>
-                    <input id="project_description" class="form-control col-sm-8" placeholder="Project description"
+                    <label for="item_description" class="col-sm-4 col-form-label">Item description</label>
+                    <input id="item_description" class="form-control col-sm-8" placeholder="Item description"
                            type="text"
-                           v-model="project_description"/>
+                           v-model="item_description"/>
                 </div>
                 <div class="form-group row">
-                    <label for="project_members_id" class="col-sm-4 col-form-label">Team members</label>
-                    <select name="project_member_id" id="project_members_id" v-model="project_member_id">
-                        <option disabled value="">Please select a Team Member</option>
-                        <option :selected="member.teamMemberid == project_member_id" v-bind:value="member.teamMemberid"
-                                v-for="member in members">{{ member.teamMemberLastName }} {{ member.teamMemberFirstName
-                            }}
+                    <label for="item_status" class="col-sm-4 col-form-label">Status</label>
+                    <select name="item_status" id="item_status" v-model="item_status">
+                        <option disabled value="">Please select the Status</option>
+                        <option :selected="status.statusName == item_status" v-bind:value="status.statusName"
+                                v-for="status in statuses">{{ status.statusName }}
                         </option>
                     </select>
                 </div>
                 <div class="form-group row">
-                    <label for="project_statuses_id" class="col-sm-4 col-form-label">Status</label>
-                    <select name="project_status_id" id="project_statuses_id" v-model="project_status_name">
-                        <option disabled value="">Please select the Status</option>
-                        <option :selected="status.statusName == project_status_name" v-bind:value="status.statusName"
-                                v-for="status in statuses">{{ status.statusName }}
+                    <label for="item_member_id" class="col-sm-4 col-form-label">Team members</label>
+                    <select name="item_member_id" id="item_member_id" v-model="item_member_id">
+                        <option disabled value="">Please select a Team Member</option>
+                        <option :selected="member.teamMemberid == item_member_id" v-bind:value="member.teamMemberid"
+                                v-for="member in members">{{ member.teamMemberLastName }} {{ member.teamMemberFirstName
+                            }}
                         </option>
                     </select>
                 </div>
@@ -61,6 +61,7 @@
             </div>
         </div>
     </form>
+
 
     <br><br>
 
@@ -73,6 +74,7 @@
             <th>Status</th>
             <th>Type</th>
             <th>Assignee</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -83,6 +85,10 @@
             <td>{{ item.statusOfItem }}</td>
             <td>{{ item.typeOfItem }}</td>
             <td>{{ item.teamMemberOfProjectLastName }} {{ item.teamMemberOfProjectFirstName }}</td>
+            <td align="center">
+                <button class="btn btn-primary" >Edit</button>
+                <button class="btn btn-danger" v-on:click="deleteItem(item)">Delete</button>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -98,6 +104,7 @@
                 items: '',
                 statuses: '',
                 members: '',
+                types: '',
                 item_id: '',
                 item_name: '',
                 item_description: '',
@@ -114,10 +121,30 @@
                 console.log('Getting items ...');
                 axios
                     .get("/api/v1/items")
-                    .then(response => (this.items = response.data));
+                    .then(response => this.items = response.data);
+                axios
+                    .get("/api/v1/members")
+                    .then(response => (this.members = response.data));
+                axios
+                    .get("/api/v1/status")
+                    .then(response => (this.statuses = response.data))
+                axios
+                    .get("/api/v1/status")
+                    .then(response => (this.statuses = response.data))
+            },
+            editItem: function () {
+                this.item_id = item.itemId;
+                this.item_name = item.title;
+                this.item_description = item.description;
+                this.item_status = item.statusOfItem;
+                this.item_type = item.typeOfItem;
+                this.item_member_id = item.teamMemberId;_
+                document.getElementById('itemForm')
+                    .setAttribute("class", document.getElementById('itemForm')
+                        .getAttribute("class") + " show");
             },
             postItem: function (item) {
-                if (this.item_id == '' || this.item_id == null) {
+                if(this.item_id == '' || this.item_id == null) {
                     axios
                         .post("api/v1/add-new-item", {
                             "itemId": this.item_id,
@@ -128,14 +155,40 @@
                             "teamMemberId": this.item_member_id
                         })
                         .then(savedItem => {
-                            this.projects.push(savedItem.data)
+                            this.items.push(savedItem.data);
                             this.item_name = '';
                             this.item_description = '';
                             this.item_status = '';
-                            this.item_type= '';
-                            this.item_member_id= '';
+                            this.item_type = '';
+                            this.item_member_id = '';
                         })
                     console.log('New item added');
+                } else {
+                    axios
+                        .put("api/v1/update-item/" + this.item_id, {
+                            "itemId": this.item_id,
+                            "title": this.item_name,
+                            "description": this.item_description,
+                            "statusOfItem": this.item_status,
+                            "typeOfItem": this.item_type,
+                            "teamMemberId": this.item_member_id
+                        })
+                        .then(editedItem => {
+                            this.getItems();
+                            this.item_id = '';
+                            this.item_name = '';
+                            this.item_description = '';
+                            this.item_status = '';
+                            this.item_type = '';
+                            this.item_member_id = '';
+                        })
+                }
+            },
+            deleteItem: async function (item) {
+                await axios
+                    .delete("/api/v1/item/" + item.itemId);
+                this.getItems();
+                console.log('Item deleted');
             }
         }
     })

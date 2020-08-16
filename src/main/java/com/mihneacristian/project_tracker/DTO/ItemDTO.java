@@ -23,6 +23,7 @@ public class ItemDTO {
         this.description = itemEntity.getDescription();
         this.statusOfItem = itemEntity.getStatusOfItem().getStatusName();
         this.typeOfItem = itemEntity.getTypeOfItem().getName();
+        this.teamMemberId = itemEntity.getTeamMemberOfItem().getMemberId();
         this.teamMemberOfProjectFirstName = itemEntity.getTeamMemberOfItem().getFirstName();
         this.teamMemberOfProjectLastName = itemEntity.getTeamMemberOfItem().getLastName();
         this.teamMemberOfProjectEmailAddress = itemEntity.getTeamMemberOfItem().getEmailAddress();
@@ -101,6 +102,7 @@ public class ItemDTO {
                 ", description='" + description + '\'' +
                 ", statusOfItem='" + statusOfItem + '\'' +
                 ", typeOfItem='" + typeOfItem + '\'' +
+                ", teamMemberId=" + teamMemberId +
                 ", teamMemberOfProjectFirstName='" + teamMemberOfProjectFirstName + '\'' +
                 ", teamMemberOfProjectLastName='" + teamMemberOfProjectLastName + '\'' +
                 ", teamMemberOfProjectEmailAddress='" + teamMemberOfProjectEmailAddress + '\'' +
