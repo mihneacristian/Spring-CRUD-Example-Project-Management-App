@@ -2,9 +2,13 @@ package com.mihneacristian.project_tracker.Services;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
 import com.mihneacristian.project_tracker.DTO.ProjectDTO;
-import com.mihneacristian.project_tracker.Entities.Item;
-import com.mihneacristian.project_tracker.Entities.Project;
+import com.mihneacristian.project_tracker.Entities.*;
+import com.mihneacristian.project_tracker.EntityConverter.ItemEntityConverter;
+import com.mihneacristian.project_tracker.EntityConverter.ProjectEntityConverter;
 import com.mihneacristian.project_tracker.Repositories.ItemRepository;
+import com.mihneacristian.project_tracker.Repositories.StatusRepository;
+import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
+import com.mihneacristian.project_tracker.Repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,15 @@ public class ItemService {
 
     @Autowired
     ItemRepository itemRepository;
+
+    @Autowired
+    StatusRepository statusRepository;
+
+    @Autowired
+    TeamMembersRepository teamMembersRepository;
+
+    @Autowired
+    TypeRepository typeRepository;
 
     @Transactional
     public Boolean isItemIdPresent(Integer id) {
@@ -70,7 +83,39 @@ public class ItemService {
     @Transactional
     public Item saveNewItem(ItemDTO itemDTO) {
 
-        Item itemToBeSaved = new Item(itemDTO);
+        Optional<Status> byStatusName = statusRepository.findByStatusName(itemDTO.statusOfItem);
+        Optional<Type> byTypeName = typeRepository.findByName(itemDTO.typeOfItem);
+        Optional<TeamMembers> byMemberId = teamMembersRepository.findByMemberId(itemDTO.teamMemberId);
+
+        TeamMembers teamMembers = null;
+        if (!byMemberId.isPresent()) {
+
+            TeamMembers newMember = new TeamMembers(itemDTO.teamMemberId);
+            teamMembers = teamMembersRepository.save(newMember);
+        } else {
+            teamMembers = byMemberId.get();
+        }
+
+        Status status = null;
+        if (!byStatusName.isPresent()) {
+
+            Status newStatus = new Status(itemDTO.statusOfItem);
+            status = statusRepository.save(newStatus);
+        } else {
+
+            status = byStatusName.get();
+        }
+
+        Type type = null;
+        if (!byTypeName.isPresent()) {
+            Type newType = new Type(itemDTO.typeOfItem);
+            newType = typeRepository.save(newType);
+        } else {
+
+            type = byTypeName.get();
+        }
+
+        Item itemToBeSaved = new Item(itemDTO, teamMembers, status, type);
         Item savedItem = itemRepository.save(itemToBeSaved);
         return savedItem;
     }

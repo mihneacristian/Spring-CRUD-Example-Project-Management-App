@@ -42,7 +42,7 @@ public class ItemController {
         }
     }
 
-    @PostMapping(value = "/add-new-item", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "add-new-item", consumes = "application/json")
     public ResponseEntity<Item> createItem(@RequestBody ItemDTO itemDTO) {
 
         Item item = itemService.saveNewItem(itemDTO);

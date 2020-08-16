@@ -18,6 +18,14 @@ public class Type {
     @OneToMany(mappedBy = "typeOfItem")
     List<Item> items;
 
+    public Type() {
+    }
+
+    public Type(String typeOfItem) {
+
+        this.name = typeOfItem;
+    }
+
     public Integer getTypeId() {
         return typeId;
     }

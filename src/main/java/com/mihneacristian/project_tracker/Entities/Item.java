@@ -38,6 +38,15 @@ public class Item {
     @JoinColumn(name = "member_id")
     TeamMembers teamMemberOfItem;
 
+    public Item(ItemDTO itemDTO, TeamMembers teamMembers, Status status, Type type) {
+
+        this.title = itemDTO.title;
+        this.description = itemDTO.description;
+        this.teamMemberOfItem = teamMembers;
+        this.statusOfItem = status;
+        this.typeOfItem = type;
+    }
+
     public Integer getItemId() {
         return itemId;
     }
