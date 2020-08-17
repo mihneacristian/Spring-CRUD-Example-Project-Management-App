@@ -111,8 +111,11 @@ public class ProjectService {
 
         Project project;
         Status status;
+        TeamMembers teamMembers;
 
         Optional<Status> statusOptional = statusRepository.findByStatusName(projectToBeUpdated.statusName);
+
+        Optional<TeamMembers> teamMembersOptional = teamMembersRepository.findByMemberId(projectToBeUpdated.teamMemberId);
 
         Optional<Project> projectOptional = projectRepository.findById(id);
         if (!projectOptional.isPresent()) {
@@ -125,9 +128,13 @@ public class ProjectService {
             status = statusOptional.get();
             status.setStatusName(projectToBeUpdated.statusName);
 
+            teamMembers = teamMembersOptional.get();
+            teamMembers.setMemberId(projectToBeUpdated.teamMemberId);
+
             project.setName(projectToBeUpdated.projectName);
             project.setDescription(projectToBeUpdated.description);
             project.setStatusOfProject(status);
+            project.setTeamMemberOfProject(teamMembers);
         }
         return projectRepository.save(project);
     }
