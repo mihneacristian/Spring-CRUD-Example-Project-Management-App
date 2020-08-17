@@ -124,10 +124,15 @@ public class ItemService {
     public Item updateItemById(Integer id, ItemDTO itemToBeUpdated) {
 
         Item item;
-
+        Status status;
+        Type type;
         TeamMembers teamMembers;
-        Optional<TeamMembers> teamMembersOptional = teamMembersRepository.findById(id);
 
+        Optional<Status> statusOptional = statusRepository.findByStatusName(itemToBeUpdated.statusOfItem);
+
+        Optional<Type> typeOptional = typeRepository.findByName(itemToBeUpdated.typeOfItem);
+
+        Optional<TeamMembers> teamMembersOptional = teamMembersRepository.findByMemberId(itemToBeUpdated.teamMemberId);
 
         Optional<Item> itemOptional = itemRepository.findById(id);
         if (!itemOptional.isPresent()) {
@@ -136,10 +141,19 @@ public class ItemService {
         } else {
 
             item = itemOptional.get();
+            status = statusOptional.get();
+            type = typeOptional.get();
             teamMembers = teamMembersOptional.get();
+
+            status.setStatusName(itemToBeUpdated.statusOfItem);
+            type.setName(itemToBeUpdated.typeOfItem);
+            teamMembers.setMemberId(itemToBeUpdated.teamMemberId);
 
             item.setTitle(itemToBeUpdated.title);
             item.setDescription(itemToBeUpdated.description);
+            item.setStatusOfItem(status);
+            item.setTypeOfItem(type);
+            item.setTeamMemberOfItem(teamMembers);
         }
         return itemRepository.save(item);
     }
