@@ -10,6 +10,15 @@ public class ItemDTO {
     public String statusOfItem;
     public String typeOfItem;
     public Integer teamMemberId;
+
+    public Integer getTeamMemberId() {
+        return teamMemberId;
+    }
+
+    public void setTeamMemberId(Integer teamMemberId) {
+        this.teamMemberId = teamMemberId;
+    }
+
     public String teamMemberOfProjectFirstName;
     public String teamMemberOfProjectLastName;
     public String teamMemberOfProjectEmailAddress;

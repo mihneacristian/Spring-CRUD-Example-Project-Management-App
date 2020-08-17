@@ -110,6 +110,9 @@ public class ProjectService {
     public Project updateProjectById(Integer id, ProjectDTO projectToBeUpdated) {
 
         Project project;
+        Status status;
+
+        Optional<Status> statusOptional = statusRepository.findByStatusName(projectToBeUpdated.statusName);
 
         Optional<Project> projectOptional = projectRepository.findById(id);
         if (!projectOptional.isPresent()) {
@@ -118,8 +121,13 @@ public class ProjectService {
         } else {
 
             project = projectOptional.get();
+
+            status = statusOptional.get();
+            status.setStatusName(projectToBeUpdated.statusName);
+
             project.setName(projectToBeUpdated.projectName);
             project.setDescription(projectToBeUpdated.description);
+            project.setStatusOfProject(status);
         }
         return projectRepository.save(project);
     }

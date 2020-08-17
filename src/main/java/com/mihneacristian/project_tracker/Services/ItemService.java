@@ -125,6 +125,10 @@ public class ItemService {
 
         Item item;
 
+        TeamMembers teamMembers;
+        Optional<TeamMembers> teamMembersOptional = teamMembersRepository.findById(id);
+
+
         Optional<Item> itemOptional = itemRepository.findById(id);
         if (!itemOptional.isPresent()) {
 
@@ -132,6 +136,8 @@ public class ItemService {
         } else {
 
             item = itemOptional.get();
+            teamMembers = teamMembersOptional.get();
+
             item.setTitle(itemToBeUpdated.title);
             item.setDescription(itemToBeUpdated.description);
         }
