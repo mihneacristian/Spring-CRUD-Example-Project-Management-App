@@ -1,6 +1,6 @@
 # Spring CRUD Example - Simple Project Management App
 
-A Java full stack application with all the CRUD operations on a MySQL database using VueJS as our Front end Framework and Spring Boot as our Back end REST API.
+A Java full stack application with all the CRUD operations on a MySQL database using VueJS as the Front end Framework and Spring Boot as the Back end REST API.
 
 ## Used technologies:
 - Spring Boot
