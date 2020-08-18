@@ -5,5 +5,7 @@ A Java full stack application with all the CRUD operations on a MySQL database u
 <br />
 <p align="center">
     <img src="https://i.imgur.com/vsmUOb3.png"/>
-    <img src="https://i.imgur.com/bH8HRkV.png"/>
+    <img src="https://i.imgur.com/Zf4uIvf.png"/>
+    <img src="https://i.imgur.com/wyOE8eK.png"/>
+    <img src="https://i.imgur.com/sH11mlN.png"/>
 </p>
