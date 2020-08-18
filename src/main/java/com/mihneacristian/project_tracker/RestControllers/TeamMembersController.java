@@ -1,8 +1,6 @@
 package com.mihneacristian.project_tracker.RestControllers;
 
-import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.DTO.TeamMembersDTO;
-import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Entities.TeamMembers;
 import com.mihneacristian.project_tracker.Services.TeamMembersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 
 

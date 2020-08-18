@@ -3,7 +3,6 @@ package com.mihneacristian.project_tracker.Entities;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 @Table(name = "status")
 public class Status {

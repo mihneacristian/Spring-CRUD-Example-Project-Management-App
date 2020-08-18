@@ -2,7 +2,9 @@ package com.mihneacristian.project_tracker.EntityConverter;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
 import com.mihneacristian.project_tracker.Entities.Item;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ItemEntityConverter implements EntityConverter<Item, ItemDTO> {
 
     @Override

@@ -1,9 +1,6 @@
 package com.mihneacristian.project_tracker.Entities;
 
 import com.mihneacristian.project_tracker.DTO.TeamMembersDTO;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.List;
 

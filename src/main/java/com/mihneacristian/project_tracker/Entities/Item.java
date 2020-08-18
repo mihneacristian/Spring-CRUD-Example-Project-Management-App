@@ -1,12 +1,7 @@
 package com.mihneacristian.project_tracker.Entities;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
-import com.mihneacristian.project_tracker.DTO.ProjectDTO;
-import org.hibernate.Hibernate;
-import org.springframework.data.geo.Polygon;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -31,8 +26,6 @@ public class Item {
     @JoinColumn(name = "type_Id")
     Type typeOfItem;
 
-    @OneToMany(mappedBy = "itemIdForThisComment", cascade = CascadeType.ALL)
-    List<Comment> comment;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -85,14 +78,6 @@ public class Item {
 
     public void setTypeOfItem(Type typeOfItem) {
         this.typeOfItem = typeOfItem;
-    }
-
-    public List<Comment> getComment() {
-        return comment;
-    }
-
-    public void setComment(List<Comment> comment) {
-        this.comment = comment;
     }
 
     public TeamMembers getTeamMemberOfItem() {

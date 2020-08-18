@@ -1,17 +1,13 @@
 package com.mihneacristian.project_tracker.Services;
 
 import com.mihneacristian.project_tracker.DTO.ItemDTO;
-import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.Entities.*;
-import com.mihneacristian.project_tracker.EntityConverter.ItemEntityConverter;
-import com.mihneacristian.project_tracker.EntityConverter.ProjectEntityConverter;
 import com.mihneacristian.project_tracker.Repositories.ItemRepository;
 import com.mihneacristian.project_tracker.Repositories.StatusRepository;
 import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
 import com.mihneacristian.project_tracker.Repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,6 @@
 package com.mihneacristian.project_tracker.Entities;
 
 import com.mihneacristian.project_tracker.DTO.ProjectDTO;
-
 import javax.persistence.*;
 
 @Entity

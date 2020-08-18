@@ -5,7 +5,6 @@ import com.mihneacristian.project_tracker.Entities.Type;
 import com.mihneacristian.project_tracker.Repositories.TypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,9 @@ public class TypeService {
     }
 
     @Transactional
-    public void saveNewType(Type commentText) {
+    public void saveNewType(Type type) {
 
-        typeRepository.save(commentText);
+        typeRepository.save(type);
     }
 
     @Transactional

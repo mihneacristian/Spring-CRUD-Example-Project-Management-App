@@ -1,13 +1,10 @@
 package com.mihneacristian.project_tracker.Services;
 
-import com.mihneacristian.project_tracker.DTO.ProjectDTO;
 import com.mihneacristian.project_tracker.DTO.TeamMembersDTO;
-import com.mihneacristian.project_tracker.Entities.Project;
 import com.mihneacristian.project_tracker.Entities.TeamMembers;
 import com.mihneacristian.project_tracker.Repositories.TeamMembersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
