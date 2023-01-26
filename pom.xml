@@ -75,7 +75,7 @@
         <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>axios</artifactId>
-            <version>0.19.2</version>
+            <version>0.27.2</version>
         </dependency>
     </dependencies>
 
