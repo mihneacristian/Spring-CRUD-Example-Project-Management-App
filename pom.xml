@@ -80,6 +80,7 @@
     </dependencies>
 
     <build>
+      <pluginManagement>    
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -100,6 +101,15 @@
                 </configuration>
             </plugin>
         </plugins>
+      </pluginManagement>
     </build>
-
+    <distributionManagement>  <!-- Added Distribution Management -->
+    <repository>
+        <uniqueVersion>false</uniqueVersion>
+        <id>corp1</id>
+        <name>Corporate Repository</name>
+        <url>file:///home/myfolder/.m2</url>
+        <layout>default</layout>
+    </repository>
+  </distributionManagement>
 </project>
