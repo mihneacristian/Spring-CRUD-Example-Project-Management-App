@@ -106,9 +106,8 @@
     <distributionManagement>  <!-- Added Distribution Management -->
     <repository>
         <uniqueVersion>false</uniqueVersion>
-        <id>corp1</id>
-        <name>Corporate Repository</name>
-        <url>file:///home/myfolder/.m2</url>
+        <id>codehausSnapshots</id>
+        <name>Codehaus Snapshots</name>
         <layout>default</layout>
     </repository>
   </distributionManagement>
