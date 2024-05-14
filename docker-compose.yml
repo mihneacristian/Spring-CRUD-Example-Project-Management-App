@@ -1,0 +1,31 @@
+version: '3'
+
+networks:
+ 
+
+  mysql-most:
+
+services:
+  # Use a more descriptive service name
+  frontend:
+    build: .  # Build the frontend image from the current directory
+    ports:
+      - "8085:8085"  # Map container port 8085 to host port 8080 (standard HTTP)
+    environment:
+      - MYSQL_HOST=mysqldb  # Use the service name of the database container
+      - MYSQL_PORT=3306  # Standard MySQL port
+      - ...  # Add other environment variables from .env (see note)
+    depends_on:
+      - db  # Ensure database is ready before starting frontend
+    networks:
+      - mysql-most  # Connect the frontend to the custom network
+
+  # Use a more descriptive service name
+  db:
+    build: ./src  # Build the database image from the directory named 'db'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root@123  # Consider using a stronger password
+      - MYSQL_DATABASE=bugtracker
+    networks:
+      - mysql-most
+
