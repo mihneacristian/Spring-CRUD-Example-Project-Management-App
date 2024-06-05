@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: fullstackapp-deployment
+  namespace: webapps
+spec:
+  selector:
+    matchLabels:
+      app: fullstackapp
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: fullstackapp
+    spec:
+      containers:
+        - name: fullstackapp
+          image: 17rj/fullstackapp:latest # Image that will be used to containers in the cluster
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8085 # The port that the container is running on in the cluster
+---
+
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: fullstackapp-ssvc
+spec:
+  selector:
+    app: fullstackapp
+  ports:
+    - protocol: "TCP"
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8085 # The port exposed by the service
+  type: LoadBalancer # type of the service.
+
+
+
